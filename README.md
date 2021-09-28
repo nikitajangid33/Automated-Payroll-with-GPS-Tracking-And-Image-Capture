@@ -1,0 +1,2 @@
+# Automated-Payroll-with-GPS-Tracking-And-Image-Capture
+This system is a combination of web as well as android application where the user will be using the android application and admin as well as HR will work with web application. This application is meant for field work users. The user will have this application in his android phone, when the user will login to the system his image will be captured and his GPS location will be sent to the admin where admin will view the image and GPS location in the web application.
