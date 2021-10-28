@@ -10,7 +10,7 @@ class Employee(models.Model):
     fname=models.CharField(max_length=50)
     lname=models.CharField(max_length=50)
     email=models.EmailField()
-    password=models.CharField(max_length=10,default='abcd1234')
+    password=models.CharField(max_length=128,default='abcd1234')
     street=models.CharField(max_length=50)
     pincode=models.IntegerField(default=000000)
     state=models.CharField(max_length=10)
@@ -29,6 +29,7 @@ class WorkLocations(models.Model):
     finalLongitude=models.DecimalField(max_digits=9,decimal_places=6)
     finalLatitude=models.DecimalField(max_digits=9,decimal_places=6)
     created_at=models.DateField(default=datetime.now)
+    active=models.BooleanField(default=True)
 
 class EmployeeWorkLocations(models.Model):
     empId=models.ForeignKey(Employee,on_delete=models.CASCADE)
