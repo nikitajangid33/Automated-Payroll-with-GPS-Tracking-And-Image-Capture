@@ -4,7 +4,8 @@ from django.http.response import HttpResponse
 from django.contrib.auth.models import User,auth
 from django.contrib.auth.hashers import make_password,check_password
 from .models import Employee,WorkLocations,EmployeeWorkLocations,EmployeeImages
-from  rest_framework.views import APIView
+from rest_framework.views import APIView
+from rest_framework.parsers import FileUploadParser,MultiPartParser 
 import re
 from datetime import datetime,timedelta
 from django.utils import timezone
@@ -397,34 +398,37 @@ def saveEmployeeCurrentLocation(request):
 
 
 #saving employee image
-def saveEmployeeImage(request):
-    print(request)
-    finalRequest=request.POST #QueryDict of all the request parameter in body
-    finalRequest=finalRequest.dict()#changing dictionary from Query dict
-    print(finalRequest)
+class saveEmployeeImage(APIView):
+    parser_classes = (MultiPartParser,)
+    def post(self,request):
 
-    if all(k in finalRequest for k in ('empId','img')):
-        empId=request.POST['empId']
-        img=request.POST['img']
+        file=request.data['file']
+        print(file)
+        finalRequest=request.data #QueryDict of all the request parameter in body
+        print(finalRequest)
 
-         #check field is set of not
-        if empId and img and empId :
-            print("all variables are set")
+        if all(k in finalRequest for k in ('empId','file')):
+            empId=request.data['empId']
+            img=request.data['file']
+
+            #check field is set of not
+            if empId and img and empId :
+                print("all variables are set")
+            else:
+                return HttpResponse(
+                    '{"status":400,"message":"Required Fields cannot be empty"}',
+                    content_type='application/json'
+                )
+
+            #checking if empId is valid or not
+            emp=Employee.objects.filter(id=empId).get()
+            print(emp.id)
+            if not Employee.objects.filter(id=empId).exists():
+                return HttpResponse('{"status":400,"message":"Employee Id is wrong"}',content_type='application/json')
+
+            #saving image in DB
+            empImg=EmployeeImages.objects.create(empId=emp,img=img)
+            empImg.save()
+            return HttpResponse('{"status":200,"message":"Data Saved Successfuly"}',content_type='application/json')
         else:
-            return HttpResponse(
-                '{"status":400,"message":"Required Fields cannot be empty"}',
-                content_type='application/json'
-            )
-
-        #checking if empId is valid or not
-        emp=Employee.objects.filter(id=empId).get()
-        print(emp.id)
-        if not Employee.objects.filter(id=empId).exists():
-            return HttpResponse('{"status":400,"message":"Employee Id is wrong"}',content_type='application/json')
-
-        #saving image in DB
-        empImg=EmployeeImages.objects.create(empId=empId,img=img)
-        empImg.save()
-        return HttpResponse('{"status":200,"message":"Data Saved Successfuly"}',content_type='application/json')
-    else:
-        return HttpResponse('{"status":400,"message":"Required fields are missing in the request"}',content_type='application/json')
+            return HttpResponse('{"status":400,"message":"Required fields are missing in the request"}',content_type='application/json')

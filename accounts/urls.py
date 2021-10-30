@@ -15,7 +15,7 @@ urlpatterns=[
     path('loginEmployee',views.loginEmployee,name='loginEmployee'),
     path('saveWorkLocation',views.saveWorkLocation,name='saveWorkLocation'),
     path('saveEmployeeCurrentLocation',views.saveEmployeeCurrentLocation,name='saveEmployeeCurrentLocation'),
-    path('saveEmployeeImage',views.saveEmployeeImage,name='saveEmployeeImage')
+    path('saveEmployeeImage',views.saveEmployeeImage.as_view(),name='saveEmployeeImage')
 ]
 
 urlpatterns=urlpatterns + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
