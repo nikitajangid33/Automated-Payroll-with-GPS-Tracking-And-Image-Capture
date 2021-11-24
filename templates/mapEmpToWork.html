@@ -1,0 +1,54 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+        
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/saveEmployeeCurrentLocation/{{ user_id }}" method="post">
+                            {% csrf_token %}
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-6.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">Map Master</h5>
+                            <p>Employee</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <select name="empId">
+                                    <option disabled selected>Select</option>
+                                    {% for eachEmployee in employees %}
+                                    <option name="empId" value="{{ eachEmployee.id }}">{{ eachEmployee.fname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                           
+                            <p>WorkLocation</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <select name="workLocationId">
+                                    <option disabled selected>Select</option>
+                                    {% for eachWorkLocation in workLocations %}
+                                    <option name="workLocationId" value="{{ eachWorkLocation.id }}">{{ eachWorkLocation.address }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

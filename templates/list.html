@@ -1,0 +1,149 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+{% include 'messages.html' %}
+    {% if model == 'workLocation' %}
+    <h3 class="h4 lh-130 mb-3 btn-inner--text headingMaster">WorkLocation Master</h5>
+    <div class="container container-background">  
+        <div class="row mt-5">
+                {% for eachWorkLocation in workLocations %}
+                <div class="col-md-3" havePd>
+                    <div class="card">
+                        <div class="card-body pb-4">
+                            <form action="/user/{{ user_id }}/update" method="post">
+                                {% csrf_token %}
+                            <p>Address:<span class="text-muted mb-0">{{eachWorkLocation.address}}</span></p>
+                            <p>City:<span class="text-muted mb-0">{{eachWorkLocation.state}}</span></p>
+                            <p>Pincode:<span class="text-muted mb-0">{{eachWorkLocation.pincode}}</span></p>
+                            <p>Country:<span class="text-muted mb-0">{{eachWorkLocation.country}}</span></p>
+                            {% if eachWorkLocation.active %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()" checked >
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="False" >
+                            {% else %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()">
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="True" >
+                            {% endif %}
+
+                            <input name="id" type="hidden" value={{eachWorkLocation.id}} >
+                            <input name="updationIn" type="hidden" value="WorkLocations" >
+                            
+                            <br/>
+                            <a href="/user/{{ user_id }}/updation_workLocation/{{eachWorkLocation.id}}" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">Update</span>
+                            </a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            
+        </div>
+    </div>
+
+    {% elif model == 'employees' %}
+    <h3 class="h4 lh-130 mb-3 btn-inner--text headingMaster">Employee Master</h5>
+    <div class="container container-background">  
+        <div class="row mt-5">
+                {% for employee in employees %}
+                <div class="col-md-3" havePd>
+                    <div class="card">
+                        <div class="card-body pb-4">
+                            <form action="/user/{{ user_id }}/update" method="post">
+                                {% csrf_token %}
+                            <p>First Name:<span class="text-muted mb-0">{{employee.fname}}</span></p>
+                            <p>Last Name:<span class="text-muted mb-0">{{employee.lname}}</span></p>
+                            <p>Email:<span class="text-muted mb-0">{{employee.email}}</span></p>
+                            <p>Street:<span class="text-muted mb-0">{{employee.street}}</span></p>
+                            <p>Pincode:<span class="text-muted mb-0">{{employee.pincode}}</span></p>
+                            <p>Mobile Number:<span class="text-muted mb-0">{{employee.mobileNumber}}</span></p>
+                            <p>Country:<span class="text-muted mb-0">{{employee.country}}</span></p>
+                            {% if employee.active %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()" checked >
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="False" >
+                            {% else %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()">
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="True" >
+                            {% endif %}
+
+                            <input name="id" type="hidden" value={{employee.id}} >
+                            <input name="updationIn" type="hidden" value="Employee" >
+                            
+                            <br/>
+                            <a href="/user/{{ user_id }}/updation_employee/{{employee.id}}" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">Update</span>
+                            </a>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            
+        </div>
+    </div>
+
+    {% elif model == 'mapping' %}
+    <h3 class="h4 lh-130 mb-3 btn-inner--text headingMaster">Employee Live Information</h5>
+    <div class="container container-background">  
+        <div class="row mt-5">
+                {% for eacheEmpInfor in empInfor %}
+                <div class="col-md-3" havePd>
+                    <div class="card">
+                        <div class="card-body pb-4">
+                            <form action="/user/{{ user_id }}/update" method="post">
+                                {% csrf_token %}
+                            <p>First Name:<span class="text-muted mb-0">{{eacheEmpInfor.empId.fname}}</span></p>
+                            <p>Last Name:<span class="text-muted mb-0">{{eacheEmpInfor.empId.lname}}</span></p>
+                            <p>WorkLocation:<span class="text-muted mb-0">{{eacheEmpInfor.workLocationId.address}}</span></p>
+                            <br/>
+                            <!-- <p>Street:<span class="text-muted mb-0">{{employee.street}}</span></p>
+                            <p>Pincode:<span class="text-muted mb-0">{{employee.pincode}}</span></p>
+                            <p>Mobile Number:<span class="text-muted mb-0">{{employee.mobileNumber}}</span></p>
+                            <p>Country:<span class="text-muted mb-0">{{employee.country}}</span></p> -->
+                            {% if eacheEmpInfor.active %}
+                                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<a href="/user/{{ user_id }}/employee/mappings_{{eacheEmpInfor.empId.id}}">more Information...</a>
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()" checked >
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="False" >
+                            {% else %}
+                                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<a href="">more Information...</a>
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()">
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="active" type="hidden" value="True" >
+                            {% endif %}
+
+                            <input name="id" type="hidden" value={{eacheEmpInfor.id}} >
+                            <input name="updationIn" type="hidden" value="EmployeeWorkLocations" >
+                            
+                            <br/>
+                            <!-- <a href="/user/{{ user_id }}/update" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">Update</span>
+                            </a> -->
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            
+        </div>
+    </div>
+    {% endif%}
+
+
+    {% endblock %}

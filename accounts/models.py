@@ -18,6 +18,7 @@ class Employee(models.Model):
     mobileNumber=models.DecimalField(max_digits=10,decimal_places=0)
     created_at=models.DateTimeField(default=datetime.now)
     empAdmin=models.ForeignKey(User,on_delete=models.CASCADE)
+    active=models.BooleanField(default=True)
 
 class WorkLocations(models.Model):
     address=models.CharField(max_length=100)
@@ -37,9 +38,14 @@ class EmployeeWorkLocations(models.Model):
     currenLatitude=models.DecimalField(max_digits=9,decimal_places=6)
     currenLongitude=models.DecimalField(max_digits=9,decimal_places=6)
     updated_at=models.DateTimeField(default=datetime.now)
+    active=models.BooleanField(default=True)
 
 class EmployeeImages(models.Model):
     empId=models.ForeignKey(Employee,on_delete=models.CASCADE)
     img=models.ImageField(upload_to='pics')
     saveDateTime=models.DateTimeField(default=datetime.now)
     is_verified=models.BooleanField(default=False)
+
+class UserLoggedIn(models.Model):
+    user_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    loggedIntime=models.DateTimeField(default=datetime.now)

@@ -1,0 +1,108 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+        
+        <div class="row mt-5">
+            {% if func == 'updateUserInfo' %}
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/user/{{ user_id }}/update" method="post">
+                            {% csrf_token %}
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-5.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">User Master</h5>
+                            <p>First Name</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="first_name" class="form-control" placeholder="first name" value="{{userInfor.first_name}}" required>
+                                
+                            </div>
+                            <p>Last Name</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="last_name" class="form-control" placeholder="last name" value="{{userInfor.last_name}}" required>
+                                
+                            </div>
+                            <p>Email</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="email" class="form-control" placeholder="email" value="{{userInfor.email}}" required>
+                                
+                            </div>
+                            <p>Username</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="username" class="form-control" placeholder="username" value="{{userInfor.username}}" required>
+                                
+                            </div>
+                            <input name="id" type="hidden" value={{user_id}} >
+                            <input name="updationIn" type="hidden" value="User" >
+                            
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+            {% elif func == 'changePassword' %}
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/user/{{ user_id }}/changePassword" method="post">
+                            {% csrf_token %}
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-5.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">Change Password</h5>
+                            <p>Old Password</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="password" name="oldpassword" class="form-control" placeholder="old password"  required>
+                                
+                            </div>
+                            <p>New Password</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="password" name="password" class="form-control" placeholder="new password"  required>
+                                
+                            </div>
+                            <p>Confirm Password</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="password" name="newpassword2" class="form-control" placeholder="confirm password"  required>
+                                
+                            </div>
+                            <input name="id" type="hidden" value={{user_id}} >
+                            <input name="updationIn" type="hidden" value="User" >
+                            
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    {% endblock %}
