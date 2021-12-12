@@ -1,0 +1,64 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+        
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/saveWorkLocation" method="post">
+                            {% csrf_token %}
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-7.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">WorkLocation Master</h5>
+                            <p>Address</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="address" class="form-control" placeholder="address" required>
+                                
+                            </div>
+                            <p>Pincode</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="pincode" class="form-control" placeholder="pincode" required>
+                                
+                            </div>
+                            <p>State</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="state" class="form-control" placeholder="state" required>
+                                
+                            </div>
+                            <p>Country</p>
+                            <div class="input-group form-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="country" class="form-control" placeholder="country" required>
+                                
+                            </div>
+                            <div class="input-group form-group">
+                                {{m|safe}}
+                                
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +59,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'minorProject.urls'
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher'
+)
 
 TEMPLATES = [
     {
@@ -69,6 +80,15 @@ TEMPLATES = [
         },
     },
 ]
+
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}
 
 WSGI_APPLICATION = 'minorProject.wsgi.application'
 
@@ -130,6 +150,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/media')
+STATIC_ROOT=os.path.join(BASE_DIR,'assets')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -144,3 +165,31 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FileUploadParser',
     )
 }
+
+#storing password for mails
+EMAIL_ADDR='nenika.easyecom@gmail.com'
+EMAIL_PASS  ='Hare@Rama'
+
+#We will also set django-allauth as the authentication backend for our application in the AUTHENTICATION_BACKEND configurations.
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+#set Google as the OAuth provider under SOCIALACCOUNT_PROVIDERS configurations.
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SITE_ID = 3
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
