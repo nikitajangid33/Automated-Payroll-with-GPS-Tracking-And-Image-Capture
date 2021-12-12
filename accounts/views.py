@@ -28,7 +28,7 @@ def loginPage(request):
     return render(request,'login.html')
 
 def user(request,user_id):
-    if not UserLoggedIn.objects.filter(user_id=user_id):
+    if not request.user.is_authenticated:
         messages.error(request,'Please login first to continue')
         return redirect('/')
     print(user_id)
@@ -63,7 +63,7 @@ def newWorkLocation(request,method):
         
 #to print all data of employe and worklocation
 def list_all(request,user_id,model):
-    if not UserLoggedIn.objects.filter(user_id=user_id):
+    if not request.user.is_authenticated:
         messages.error(request,'Please login first to continue')
         return redirect('/')
     print(model)
@@ -98,7 +98,7 @@ def list_all(request,user_id,model):
 
 #creating employee new
 def employeeNew(request,user_id,model):
-    if not UserLoggedIn.objects.filter(user_id=user_id):
+    if not request.user.is_authenticated:
         messages.error(request,'Please login first to continue')
         return redirect('/')
     if model == 'new':
@@ -174,7 +174,7 @@ def employeeNew(request,user_id,model):
 
 #mapping employee to worlocation
 def mapWorkLocation(request,user_id):
-    if not UserLoggedIn.objects.filter(user_id=user_id):
+    if not request.user.is_authenticated:
         messages.error(request,'Please login first to continue')
         return redirect('/')
      #getall worklocations 
@@ -193,7 +193,7 @@ def about(request,user_id):
 #for changing password and update user information
 def userInfoUpdate(request,user_id,func):
     #check if logged in or not
-    if not UserLoggedIn.objects.filter(user_id=user_id):
+    if not request.user.is_authenticated:
         messages.error(request,'Please login first to continue')
         return redirect('/')
 
@@ -231,10 +231,8 @@ def userInfoUpdate(request,user_id,func):
         return render(request,'userInformation.html',{'user_id':user_id,'userInfor':userInfor,'func':func})
 
     elif func == 'logout':
-
-        UserLoggedIn.objects.filter(user_id=user_id).delete()
-        messages.info(request,'User logged out successfuly')
-        return redirect('/')
+        messages.success(request,'User Logout Successfuly')
+        return redirect('/logout')
 
 #for updating employee and worklocation
 def updateInfo(request,user_id,model,id):
@@ -400,11 +398,14 @@ def register(request):
 
 #by default createUSer is not in staff first use to verify by superuser to make it as staff member
 
+
 #login UserAdmin using username and password
 def login(request):
     finalRequest=request.POST #QueryDict of all the request parameter in body
     finalRequest=finalRequest.dict()#changing dictionary from Query dict
     print(finalRequest)
+
+
 
     if all(k in finalRequest for k in ('username','password')):
 
@@ -432,9 +433,6 @@ def login(request):
             auth.login(request,user)
             userId=user.id#saving user id
 
-            #saving in login table
-            u=UserLoggedIn.objects.create(user_id=user)
-            u.save()
             print("inside success")
 
             #redirect to UI page with user id

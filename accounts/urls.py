@@ -1,6 +1,8 @@
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LogoutView
 
 
 from . import  views
@@ -25,7 +27,9 @@ urlpatterns=[
     path('saveWorkLocation',views.saveWorkLocation,name='saveWorkLocation'),
     path('saveEmployeeCurrentLocation/<int:user_id>',views.saveEmployeeCurrentLocation,name='saveEmployeeCurrentLocation'),
     path('saveEmployeeImage',views.saveEmployeeImage.as_view(),name='saveEmployeeImage'),
-    path('forgotPassword',views.forgotPassword,name='forgotPassword')
+    path('forgotPassword',views.forgotPassword,name='forgotPassword'),
+    path('accounts/', include('allauth.urls')),
+    path('logout', LogoutView.as_view()),
 
 ]
 

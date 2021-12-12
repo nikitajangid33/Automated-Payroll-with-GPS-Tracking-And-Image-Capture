@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -164,3 +169,27 @@ REST_FRAMEWORK = {
 #storing password for mails
 EMAIL_ADDR='nenika.easyecom@gmail.com'
 EMAIL_PASS  ='Hare@Rama'
+
+#We will also set django-allauth as the authentication backend for our application in the AUTHENTICATION_BACKEND configurations.
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+#set Google as the OAuth provider under SOCIALACCOUNT_PROVIDERS configurations.
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+SITE_ID = 3
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

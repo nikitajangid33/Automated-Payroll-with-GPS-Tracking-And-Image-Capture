@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
 
 {% block content %}
+
+    {% if user.is_authenticated %}
+        <!-- <p>Welcome, You are logged in as {{ user.id }}</p> -->
+        {% include 'home.html' with user_id=user.id %}
+    {% else %}
     <div class="container">
         {% include 'messages.html' %}
         <div class="d-flex justify-content-center h-100">
@@ -8,7 +14,7 @@
                 <div class="card-header">
                     <h3>Sign In</h3>
                     <div class="d-flex justify-content-end social_icon">
-                    
+					    <a href="{% provider_login_url 'google' %}"><span><i class="fab fa-google-plus-square"></i></span></a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -48,6 +54,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
 
     {% endblock %}

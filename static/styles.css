@@ -48,8 +48,14 @@ color: white;
 
 .social_icon{
 position: absolute;
-right: 20px;
-top: -45px;
+right: 480px;
+top: 100px;
+}
+
+.social_icon_singup{
+    position: absolute;
+    right: 4px;
+    top: 10px;
 }
 
 .input-group-prepend span{
