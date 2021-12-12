@@ -1,0 +1,34 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/user/{{ user_id }}/employee/mappings_{{ empId }}" method="post">
+                            {% csrf_token %}
+                            <h5 class="h4 lh-130 mb-3">Employee Live Information</h5>
+                            <input type="date" id="start" name="saveDateTime"
+                                    value="{{ currdate }}"
+                                    min="2018-01-01" max="2023-12-31" onchange="this.form.submit()">
+
+                            <input type="date" id="end" name="saveDateTime"
+                                    value="{{ currdate }}"
+                                    min="2018-01-01" max="2023-12-31" onchange="this.form.submit()">
+                            
+                            <a href="/user/{{ user_id }}/employee/{{ empId }}/monthlypayroll">Monthly Logs</a>
+                                    
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        {% endblock %}

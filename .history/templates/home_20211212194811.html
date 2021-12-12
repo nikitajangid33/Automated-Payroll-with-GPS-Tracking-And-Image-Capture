@@ -1,0 +1,110 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+<div>
+    {% include 'messages.html' %}
+    <!-- Main content -->
+    <section class="slice py-7">
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+                    <!-- Image -->
+                    <figure class="w-100">
+                        <img alt="Image placeholder" src="{% static 'assets/img/illustration-3.svg' %}" class="img-fluid mw-md-120">
+                    </figure>
+                </div>
+                <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+                    <!-- Heading -->
+                    <h1 class="display-4 text-center text-md-left mb-3">
+                        It's time to track your workers <strong class="text-primary">online</strong>
+                    </h1>
+                    <!-- Text -->
+                    <p class="lead text-center text-md-left text-muted">
+                        Track your workers activity with one click
+                    </p>
+                    <!-- Buttons -->
+                    <div class="text-center text-md-left mt-5">
+                        <a href="#container" class="btn btn-primary btn-icon">
+                            <span class="btn-inner--text">Get started</span>
+                            <span class="btn-inner--icon"><i data-feather="chevron-right"></i></span>
+                        </a>
+                        <a href="" class="btn btn-neutral btn-icon d-none d-lg-inline-block" target="_blank">Guide</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice slice-lg pt-lg-6 pb-0 pb-lg-6 bg-section-secondary">
+        <div class="container" id="container">
+            <!-- Title -->
+            <!-- Section title -->
+            <div class="row mb-5 justify-content-center text-center">
+                <div class="col-lg-6">
+                    <span class="badge badge-soft-success badge-pill badge-lg">
+                        Get started
+                    </span>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-5.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">Employee Master</h5>
+                            <p class="text-muted mb-0">Find all your employees here. not add employee yet? Click here to add</p>
+                            <br/>
+                            <a href="/user/{{ user_id }}/employee/new" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">Create New</span>
+                            </a>
+                            <a href="/user/{{ user_id }}/list_all/employees" class="btn btn-success btn-icon">
+                                <span class="btn-inner--text">List</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-6.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">Track your employees</h5>
+                            <p class="text-muted mb-0">You can quickly track your employee here by using only one click.</p>
+                            <br/>
+                            <a href="/user/{{ user_id }}/list_all/mapping" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">List Mapping</span>
+                            </a>
+                            <a href="/users/{{ user_id }}/mapWorkLocation" class="btn btn-success btn-icon">
+                                <span class="btn-inner--text">Map</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img src="{% static 'assets/img/illustration-7.svg' %}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">WorkLocation Master</h5>
+                            <p class="text-muted mb-0">You can find all the worklocations here. If you not able to find, you can add them.</p>
+                            <br/>
+                            <a href="/workLocation/new" class="btn btn-primary btn-icon">
+                                <span class="btn-inner--text">Create New</span>
+                            </a>
+                            <a href="{{ user_id }}/list_all/workLocation" class="btn btn-success btn-icon">
+                                <span class="btn-inner--text">List</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/user/{{ user_id }}/employee/mappings_{{ empId }}" method="post">
+                            {% csrf_token %}
+                            <h5 class="h4 lh-130 mb-3">Employee Live Information</h5>
+                            <input type="date" id="start" name="saveDateTime"
+                                    value="{{ currdate }}"
+                                    min="2018-01-01" max="2023-12-31" onchange="this.form.submit()">
+                            
+                            <a href="/user/{{ user_id }}/employee/{{ empId }}/monthlypayroll">Monthly Logs</a>
+                                    
+                        </form>
+
+                        <form action="/user/{{ user_id }}/update" method="post">
+                            {% csrf_token %}
+                            <div class="pt-4 pb-5">
+                                <img src="/media/{{empImgs.img}}" class="img-fluid img-center" style="height: 150px;" alt="Illustration" />
+                            </div>
+                            
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                             Verified?
+                            {% if empImgs.is_p %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()" checked >
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="is_verified" type="hidden" value="False" >
+                            {% else %}
+                                <label class="switch">
+                                    <input type="checkbox" onChange="this.form.submit()">
+                                    <span class="slider round"></span>
+                                </label>
+                                <input name="is_verified" type="hidden" value="True" >
+                            {% endif %}
+
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        {% endblock %}
