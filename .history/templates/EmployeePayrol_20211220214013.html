@@ -1,0 +1,64 @@
+{% extends 'base2.html' %}
+{%  load static %}
+
+{% block content %}
+    <div class="container container-background">
+        {% include 'messages.html' %}
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body pb-5">
+                        <form action="/user/{{ user_id }}/employee/{{ empId }}/monthlypayroll" method="post">
+                            {% csrf_token %}
+                            <h5 class="h4 lh-130 mb-3">Employee Live Information</h5>
+                            From:<input type="date" id="start" name="startTime"
+                                    value="{{ currdate }}"
+                                    min="2018-01-01" max="2023-12-31">
+
+                            To:<input type="date" id="end" name="endTime"
+                                    value="{{ enddate }}"
+                                    min="2018-01-01" max="2023-12-31">
+                            
+                            <input style="background-color: #008aff;color:white; " type="submit" value="Go">
+
+                            <br><br>
+                            <table>
+                                <tr>
+                                    <th>Date</th>
+                                    <th colspan="2">Photo Verified</th>
+                                    <th colspan="3">In Time</th>
+                                    <th colspan="3">Out Time </th>
+                                </tr>
+
+                                {% for eachData in data %}
+
+                                    <tr>
+                                        <td> {{ eachData.date }} </td>
+                                        <td> {{ eachData.photoVerified }} </td>
+
+                                        {% if eachData.time %}
+                                            <td>False</td>
+                                            <td></td>
+
+                                        {% else %}
+                                        <td> {{ eachData.signIn }} </td>
+                                        <td> {{ eachData.signOff }} </td>
+
+                                        {}
+                                    </tr>
+                                {% endfor %}
+                                
+                            </table>
+                            
+                                    
+                        </form>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        {% endblock %}
